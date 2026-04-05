@@ -111,6 +111,54 @@ Your ESP32 needs to know your PC's IP address.
 
 ---
 
+This is a specialized section for your README.md that makes the setup process for Piper and the Ryan voice model foolproof for your users.
+
+🎙️ Phase 5: Piper TTS & Voice Model Setup
+Shell's voice is powered by Piper, a fast, local neural text-to-speech engine. Follow these steps exactly to ensure the "Brain" can speak.
+
+1. Download Piper Executable
+Go to the Piper Releases Page.
+
+Download the file named piper_windows_amd64.zip.
+
+Important: Before extracting, right-click the .zip file, select Properties, check the Unblock box at the bottom, and click Apply. (This prevents Windows from blocking the .exe inside).
+
+2. Download the Ryan Voice Model
+Piper requires two files for every voice: the model (.onnx) and the config (.json).
+
+Model: Download en_US-ryan-high.onnx
+
+Config: Download en_US-ryan-high.onnx.json
+
+3. Setup Project Directory
+Your project folder must be organized as follows for the Python script to find the voice. Extract the Piper zip and move the files so your directory looks like this:
+
+Shell-AI (Root Folder)
+
+server.py —> (Main Python Script)
+
+piper/ —> (Folder you extracted)
+
+piper.exe
+
+libpiper_phonemize.dll
+
+models/ —> (Create this folder)
+
+en_US-ryan-high.onnx —> (Paste here)
+
+en_US-ryan-high.onnx.json —> (Paste here)
+
+💡 Why this setup?
+Zero Latency: By placing Piper in the project root, the script doesn't have to search your entire system path.
+
+Portability: You can move the entire Shell-AI folder to another PC, and as long as they have the CUDA toolkit, Shell will work immediately.
+
+Version Control: Keeping the models inside models/ prevents your root directory from getting cluttered as you add more voices later.
+
+🚀 Final Check
+If you run the script and Shell remains silent, check your terminal for a "PIPER CRASHED" error. This usually means the MODEL_PATH in server.py doesn't perfectly match the filename in your piper/models/ folder. Ensure there are no hidden .txt extensions on your JSON files!
+
 ## 🩺 Troubleshooting
 
 * **"cuBLAS error":** Your CUDA installation is either missing or the wrong version. Re-install v12.3.
